@@ -167,7 +167,7 @@ Começar agora <ChevronRight size={16} />
 <BookOpen size={13} className="text-gray-600" />
 <span className="text-xs text-gray-500">UniResolve · Centro Universitário Jorge Amado</span>
 </div>
-<p className="text-xs text-gray-600">Projeto Design Thinking · Campus Paralela · 2025</p>
+<p className="text-xs text-gray-600">Projeto Design Thinking · Campus Paralela · 2026</p>
 </div>
 </footer>
 </div>
