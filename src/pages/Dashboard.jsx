@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Plus, Search, Filter, Inbox, AlertCircle, CheckCircle2, Clock } from 'lucide-react'
+import { Plus, Search, Inbox, AlertCircle, CheckCircle2, Clock } from 'lucide-react'
 import { mockOccurrences, categories } from '../data/occurrences'
 import { OccurrenceCard } from '../components/ui/OccurrenceCard'
 
@@ -43,91 +43,85 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-8">
-      {/* Header */}
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
       <motion.div
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between mb-8"
+        className="flex items-center justify-between mb-6"
       >
         <div>
-          <h1 className="font-display font-bold text-2xl text-white">Dashboard</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Campus Paralela · Suas ocorrências</p>
+          <h1 className="font-display font-bold text-xl sm:text-2xl text-white">Dashboard</h1>
+          <p className="text-xs sm:text-sm text-gray-500 mt-0.5">Campus Paralela · Suas ocorrências</p>
         </div>
-        <button onClick={() => navigate('/nova')} className="btn-primary">
-          <Plus size={15} /> Nova ocorrência
+        <button onClick={() => navigate('/nova')} className="btn-primary text-sm py-2 px-3 sm:px-4">
+          <Plus size={15} />
+          <span className="hidden sm:inline">Nova ocorrência</span>
+          <span className="sm:hidden">Nova</span>
         </button>
       </motion.div>
 
-      {/* Summary cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6">
         {summaryCards.map(({ label, value, icon: Icon, color, bg }, i) => (
           <motion.div
             key={label}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className={`card border ${bg} p-4`}
+            className={`card border ${bg} p-3 sm:p-4`}
           >
-            <div className="flex items-center justify-between mb-3">
-              <Icon size={15} className={color} />
-            </div>
-            <p className="text-2xl font-display font-bold text-white">{value}</p>
-            <p className="text-xs text-gray-500 mt-0.5">{label}</p>
+            <Icon size={14} className={`${color} mb-2`} />
+            <p className="text-xl sm:text-2xl font-display font-bold text-white">{value}</p>
+            <p className="text-[11px] sm:text-xs text-gray-500 mt-0.5">{label}</p>
           </motion.div>
         ))}
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-6">
-        <div className="relative flex-1">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-          <input
-            type="text"
-            placeholder="Buscar por título ou local..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            className="input-field pl-8 text-sm"
-          />
-        </div>
-
-        <div className="flex gap-2 flex-wrap">
-          {statusFilters.map(f => (
-            <button
-              key={f.value}
-              onClick={() => setStatusFilter(f.value)}
-              className={`px-3 py-2 rounded-lg text-xs font-medium transition-all duration-150 ${
-                statusFilter === f.value
-                  ? 'bg-uj-600 text-white'
-                  : 'bg-surface-card border border-surface-border text-gray-400 hover:text-gray-200 hover:border-gray-600'
-              }`}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
+      <div className="relative mb-3">
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+        <input
+          type="text"
+          placeholder="Buscar por título ou local..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          className="input-field pl-8 text-sm"
+        />
       </div>
 
-      {/* Category chips */}
-      <div className="flex gap-2 flex-wrap mb-6">
+      <div className="flex gap-2 mb-3 overflow-x-auto pb-1 scrollbar-hide">
+        {statusFilters.map(f => (
+          <button
+            key={f.value}
+            onClick={() => setStatusFilter(f.value)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap shrink-0 ${
+              statusFilter === f.value
+                ? 'bg-uj-600 text-white'
+                : 'bg-surface-card border border-surface-border text-gray-400'
+            }`}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex gap-2 mb-5 overflow-x-auto pb-1 scrollbar-hide">
         <button
           onClick={() => setCategoryFilter('all')}
-          className={`px-2.5 py-1 rounded-full text-xs transition-all ${
+          className={`px-2.5 py-1 rounded-full text-xs whitespace-nowrap shrink-0 ${
             categoryFilter === 'all'
               ? 'bg-gray-700 text-white'
-              : 'bg-surface-card border border-surface-border text-gray-500 hover:text-gray-300'
+              : 'bg-surface-card border border-surface-border text-gray-500'
           }`}
         >
-          Todas categorias
+          Todas
         </button>
         {categories.map(c => (
           <button
             key={c.id}
             onClick={() => setCategoryFilter(c.id)}
-            className={`px-2.5 py-1 rounded-full text-xs transition-all ${
+            className={`px-2.5 py-1 rounded-full text-xs whitespace-nowrap shrink-0 ${
               categoryFilter === c.id
                 ? 'bg-gray-700 text-white'
-                : 'bg-surface-card border border-surface-border text-gray-500 hover:text-gray-300'
+                : 'bg-surface-card border border-surface-border text-gray-500'
             }`}
           >
             {c.label}
@@ -135,20 +129,19 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* List */}
       <div className="space-y-2">
         {filtered.length === 0 ? (
-          <div className="text-center py-16 card">
-            <Inbox size={32} className="text-gray-600 mx-auto mb-3" />
-            <p className="text-gray-400 font-medium">Nenhuma ocorrência encontrada</p>
-            <p className="text-gray-600 text-sm mt-1">Tente ajustar os filtros ou registre uma nova ocorrência.</p>
+          <div className="text-center py-14 card">
+            <Inbox size={28} className="text-gray-600 mx-auto mb-3" />
+            <p className="text-gray-400 font-medium text-sm">Nenhuma ocorrência encontrada</p>
+            <p className="text-gray-600 text-xs mt-1">Ajuste os filtros ou registre uma nova.</p>
           </div>
         ) : (
           filtered.map((o, i) => <OccurrenceCard key={o.id} occurrence={o} index={i} />)
         )}
       </div>
 
-      <p className="text-xs text-gray-600 text-center mt-6">
+      <p className="text-xs text-gray-600 text-center mt-5">
         {filtered.length} ocorrência{filtered.length !== 1 ? 's' : ''} exibida{filtered.length !== 1 ? 's' : ''}
       </p>
     </div>
