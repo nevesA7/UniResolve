@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Upload, Send, X, ImageIcon } from 'lucide-react'
+import { ArrowLeft, Send, X, ImageIcon } from 'lucide-react'
 import { categories, locations } from '../data/occurrences'
 import { useToastContext } from '../hooks/ToastContext'
 
@@ -58,13 +58,12 @@ export default function NovaOcorrencia() {
       setErrors(errs)
       return
     }
-
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
       addToast({
         title: 'Ocorrência registrada com sucesso!',
-        description: `Protocolo gerado. Você pode acompanhar o status no dashboard.`,
+        description: 'Protocolo gerado. Acompanhe o status no dashboard.',
         type: 'success',
       })
       navigate('/dashboard')
@@ -72,9 +71,8 @@ export default function NovaOcorrencia() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-6 py-8">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
-        {/* Header */}
         <div className="flex items-center gap-3 mb-8">
           <button
             onClick={() => navigate('/dashboard')}
@@ -89,7 +87,6 @@ export default function NovaOcorrencia() {
         </div>
 
         <div className="space-y-5">
-          {/* Title */}
           <div>
             <label className="label">Título <span className="text-red-500">*</span></label>
             <input
@@ -98,13 +95,12 @@ export default function NovaOcorrencia() {
               value={form.title}
               onChange={handleChange}
               placeholder="Ex: Ar-condicionado com defeito na Sala A204"
-              className={`input-field ${errors.title ? 'border-red-700 focus:ring-red-700' : ''}`}
+              className={`input-field ${errors.title ? 'border-red-700' : ''}`}
             />
             {errors.title && <p className="text-xs text-red-400 mt-1">{errors.title}</p>}
           </div>
 
-          {/* Category + Priority */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="label">Categoria <span className="text-red-500">*</span></label>
               <select
@@ -120,15 +116,9 @@ export default function NovaOcorrencia() {
               </select>
               {errors.category && <p className="text-xs text-red-400 mt-1">{errors.category}</p>}
             </div>
-
             <div>
               <label className="label">Prioridade</label>
-              <select
-                name="priority"
-                value={form.priority}
-                onChange={handleChange}
-                className="input-field"
-              >
+              <select name="priority" value={form.priority} onChange={handleChange} className="input-field">
                 {priorities.map(p => (
                   <option key={p.value} value={p.value}>{p.label}</option>
                 ))}
@@ -136,7 +126,6 @@ export default function NovaOcorrencia() {
             </div>
           </div>
 
-          {/* Location */}
           <div>
             <label className="label">Local <span className="text-red-500">*</span></label>
             <select
@@ -153,7 +142,6 @@ export default function NovaOcorrencia() {
             {errors.location && <p className="text-xs text-red-400 mt-1">{errors.location}</p>}
           </div>
 
-          {/* Description */}
           <div>
             <label className="label">
               Descrição <span className="text-red-500">*</span>
@@ -165,13 +153,12 @@ export default function NovaOcorrencia() {
               onChange={handleChange}
               rows={5}
               maxLength={500}
-              placeholder="Descreva o problema com o máximo de detalhes possível. Informe quando começou, o impacto nas atividades e qualquer tentativa anterior de solução."
+              placeholder="Descreva o problema com detalhes. Informe quando começou e o impacto nas atividades."
               className={`input-field resize-none ${errors.description ? 'border-red-700' : ''}`}
             />
             {errors.description && <p className="text-xs text-red-400 mt-1">{errors.description}</p>}
           </div>
 
-          {/* Image upload */}
           <div>
             <label className="label">Foto (opcional)</label>
             {imagePreview ? (
@@ -194,7 +181,6 @@ export default function NovaOcorrencia() {
             )}
           </div>
 
-          {/* Submit */}
           <div className="pt-2">
             <button
               onClick={handleSubmit}
@@ -210,9 +196,7 @@ export default function NovaOcorrencia() {
                   Registrando...
                 </span>
               ) : (
-                <>
-                  <Send size={15} /> Registrar ocorrência
-                </>
+                <><Send size={15} /> Registrar ocorrência</>
               )}
             </button>
           </div>
