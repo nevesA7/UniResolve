@@ -25,33 +25,6 @@ export default function Profile() {
   ]
 
   return (
-import { motion } from 'framer-motion'
-import { User, BookOpen, MapPin, Clock, Mail, Hash, GraduationCap, Shield, Bell, Moon, Globe } from 'lucide-react'
-import { mockUser, mockOccurrences } from '../data/occurrences'
-import { StatusBadge } from '../components/ui/StatusBadge'
-import { useNavigate } from 'react-router-dom'
-
-const myOccurrences = mockOccurrences.filter(o => o.author.matricula === mockUser.matricula)
-
-export default function Profile() {
-  const navigate = useNavigate()
-
-  const infoItems = [
-    { icon: Hash, label: 'Matrícula', value: mockUser.matricula },
-    { icon: GraduationCap, label: 'Curso', value: mockUser.curso },
-    { icon: BookOpen, label: 'Período', value: mockUser.periodo },
-    { icon: Clock, label: 'Turno', value: mockUser.turno },
-    { icon: MapPin, label: 'Campus', value: mockUser.campus },
-    { icon: Mail, label: 'E-mail', value: mockUser.email },
-  ]
-
-  const settings = [
-    { icon: Bell, label: 'Notificações por e-mail', desc: 'Receba atualizações sobre suas ocorrências', checked: true },
-    { icon: Moon, label: 'Modo escuro', desc: 'Interface no tema escuro (ativo)', checked: true },
-    { icon: Globe, label: 'Idioma', desc: 'Português (Brasil)', checked: false, text: 'PT-BR' },
-  ]
-
-  return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="font-display font-bold text-2xl text-white mb-1">Meu Perfil</h1>
