@@ -5,18 +5,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        uj: {
-          50:  '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#1A56DB',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-        },
+        uj: Object.fromEntries(
+          [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map(n => [n, `rgb(var(--uj-${n}) / <alpha-value>)`])
+        ),
         surface: {
           DEFAULT: '#0F1117',
           card: '#161B27',

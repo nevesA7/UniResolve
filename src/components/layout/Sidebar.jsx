@@ -1,6 +1,9 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, Plus, User, LogOut, BookOpen, ChevronRight } from 'lucide-react'
-import { mockUser } from '../../data/occurrences'
+import { useOccurrences } from '../../store/OccurrencesContext'
+import { RoleSwitcher } from '../ui/RoleSwitcher'
+import { brand } from '../../config/brand'
+import { initials } from '../../lib/format'
 
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -35,6 +38,7 @@ function BottomNav() {
 
 export function Sidebar() {
   const navigate = useNavigate()
+  const { currentUser, roleInfo } = useOccurrences()
 
   return (
     <>
@@ -45,8 +49,8 @@ export function Sidebar() {
               <BookOpen size={14} className="text-white" />
             </div>
             <div>
-              <span className="font-display font-bold text-white text-sm tracking-tight">UniResolve</span>
-              <p className="text-[10px] text-gray-500 leading-none mt-0.5">Campus Paralela</p>
+              <span className="font-display font-bold text-white text-sm tracking-tight">{brand.name}</span>
+              <p className="text-[10px] text-gray-500 leading-none mt-0.5">{brand.campus}</p>
             </div>
           </div>
         </div>
@@ -75,18 +79,24 @@ export function Sidebar() {
           ))}
         </nav>
 
+        <div className="px-4 pb-3">
+          <RoleSwitcher />
+        </div>
+
         <div className="px-3 pb-4 border-t border-surface-border pt-4">
           <div className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-surface-hover cursor-pointer transition-colors">
             <div className="w-7 h-7 rounded-full bg-uj-600/20 border border-uj-600/30 flex items-center justify-center shrink-0">
-              <span className="text-xs font-semibold text-uj-400">
-                {mockUser.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
-              </span>
+              <span className="text-xs font-semibold text-uj-400">{initials(currentUser.name)}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-medium text-gray-200 truncate">{mockUser.name.split(' ')[0]}</p>
-              <p className="text-[10px] text-gray-500 truncate">{mockUser.matricula}</p>
+              <p className="text-xs font-medium text-gray-200 truncate">{currentUser.name.split(' ')[0]}</p>
+              <p className="text-[10px] text-gray-500 truncate">{roleInfo.label}</p>
             </div>
-            <button onClick={() => navigate('/')} className="text-gray-500 hover:text-gray-300 transition-colors">
+            <button
+              onClick={() => navigate('/')}
+              aria-label="Sair para a página inicial"
+              className="text-gray-500 hover:text-gray-300 transition-colors"
+            >
               <LogOut size={14} />
             </button>
           </div>

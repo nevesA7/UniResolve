@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, BookOpen, MessageSquare, Zap, Shield, BarChart3, MapPin, ChevronRight } from 'lucide-react'
+import { brand } from '../config/brand'
 
 const steps = [
 { number: '01', title: 'Registre a ocorrência', desc: 'Descreva o problema, informe o local e a categoria. Leva menos de dois minutos.' },
@@ -34,8 +35,8 @@ return (
 <BookOpen size={14} className="text-white" />
 </div>
 <div>
-<span className="font-display font-bold text-white text-sm">UniResolve</span>
-<span className="hidden sm:inline text-xs text-gray-500 ml-1.5">· Campus Paralela</span>
+<span className="font-display font-bold text-white text-sm">{brand.name}</span>
+<span className="hidden sm:inline text-xs text-gray-500 ml-1.5">· {brand.campus}</span>
 </div>
 </div>
 <button onClick={() => navigate('/dashboard')} className="btn-primary text-sm py-1.5 px-3 sm:px-4">
@@ -52,7 +53,7 @@ Entrar <ArrowRight size={14} />
 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
 <div className="inline-flex items-center gap-2 bg-uj-600/10 border border-uj-600/20 rounded-full px-3 py-1 text-xs text-uj-400 mb-6">
 <span className="w-1.5 h-1.5 rounded-full bg-uj-400 animate-pulse-slow shrink-0" />
-<span className="truncate">Unijorge · Campus Paralela, Salvador — BA</span>
+<span className="truncate">{brand.institutionShort} · {brand.campus}, {brand.city}</span>
 </div>
 <h1 className="font-display font-bold text-3xl sm:text-5xl md:text-6xl text-white leading-tight mb-4">
 Relate problemas.{' '}
@@ -147,7 +148,7 @@ className="card p-4 flex gap-3 hover:border-gray-700 transition-colors"
 <div className="max-w-2xl mx-auto text-center">
 <div className="flex items-center justify-center gap-2 mb-5">
 <MapPin size={13} className="text-gray-600 shrink-0" />
-<span className="text-xs sm:text-sm text-gray-500">Av. Luís Viana Filho, 6775 — Trobogy, Salvador-BA</span>
+<span className="text-xs sm:text-sm text-gray-500">{brand.address}</span>
 </div>
 <h2 className="font-display font-bold text-xl sm:text-3xl text-white mb-3">
 Sua voz faz o campus melhorar
@@ -165,9 +166,9 @@ Começar agora <ChevronRight size={16} />
 <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
 <div className="flex items-center gap-2">
 <BookOpen size={13} className="text-gray-600" />
-<span className="text-xs text-gray-500">UniResolve · Centro Universitário Jorge Amado</span>
+<span className="text-xs text-gray-500">{brand.name} · {brand.institution}</span>
 </div>
-<p className="text-xs text-gray-600">Projeto Design Thinking · Campus Paralela · 2026</p>
+<p className="text-xs text-gray-600">{brand.footerNote}</p>
 </div>
 </footer>
 </div>
